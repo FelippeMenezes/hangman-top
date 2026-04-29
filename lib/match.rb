@@ -42,17 +42,14 @@ class Match
   def play
     loop do
       @board.show_board(@secret_word, self, @player.round_guess)
-
       if @player.round_guess == @secret_word || @secret_word.chars.uniq.sort == @board.correct_letters.sort
         puts "You won!"
         break
       end
-
       if @board.attempts >= 15
         puts "\nGame Over! The Secret Word was #{secret_word}.\n\n"
         break
       end
-
       ask_player_round_guess
     end
   end
