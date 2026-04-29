@@ -21,7 +21,7 @@ class Match
 
   def ask_player_round_guess
     print "#{@player.name}, what's your guess? => "
-    @player.round_guess = gets.chomp
+    @player.round_guess = gets.chomp.downcase
     @board.attempts += 1
   end
 
@@ -29,7 +29,7 @@ class Match
 
   def ask_player_name
     print "What's your name? => "
-    @player.name = gets.chomp
+    @player.name = gets.chomp.capitalize
   end
 
   def select_sample_secret_word
@@ -40,12 +40,20 @@ class Match
   end
 
   def play
-    while @board.attempts <= 15
+    loop do
       @board.show_board(@secret_word, self, @player.round_guess)
-      if @player.round_guess == @secret_word
-        puts "You win!"
+
+      if @player.round_guess == @secret_word || @secret_word.chars.uniq.sort == @board.correct_letters.sort
+        puts "You won!"
         break
       end
+
+      if @board.attempts >= 15
+        puts "\nGame Over! The Secret Word was #{secret_word}.\n\n"
+        break
+      end
+
+      ask_player_round_guess
     end
   end
 end

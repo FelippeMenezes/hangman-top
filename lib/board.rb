@@ -8,23 +8,23 @@ class Board
   end
 
   def show_board(secret_word, match, round_guess)
+    system('clear')
     puts "\n----- Hangman - The Odin project -----\n"
     show_secret_letters(secret_word, round_guess)
-    puts "Attempts #{@attempts}"
+    puts "\nAttempts #{@attempts}"
     puts "Correct Letters: #{@correct_letters.join(" - ")}"
     puts "Wrong Letters: #{@wrong_letters.join(" - ")}"
     puts "\n--------------------------------------"
     print "[1] Exit   "
     print "[2] Save   "
     print "[3] Load a game\n"
-    match.ask_player_round_guess
   end
 
   private
 
   def show_secret_letters(secret_word, player_round_guess)
     if secret_word.chars.include?(player_round_guess) && player_round_guess != nil
-      @correct_letters << player_round_guess
+      check_repeated_guess(player_round_guess)
       puts ""
       secret_word.chars.each do |letter|
         if @correct_letters.include?(letter)
@@ -33,9 +33,14 @@ class Board
           print "#{" _ "}"
         end
       end
-      puts "\n\nThe Secret Word has #{secret_word.length} letters.\n\n"
+    puts "\n\nThe Secret Word has #{secret_word.length} letters."
     elsif player_round_guess != nil
-      @wrong_letters << player_round_guess
+      unless @wrong_letters.include?(player_round_guess)
+        @wrong_letters << player_round_guess
+      else
+        @attempts -= 1
+        puts "You've tried this letter '#{player_round_guess}' before!"
+      end
       puts ""
       secret_word.chars.each do |letter|
         if @correct_letters.include?(letter)
@@ -44,10 +49,19 @@ class Board
           print "#{" _ "}"
         end
       end
-      puts "\n\nThe Secret Word has #{secret_word.length} letters.\n\n"
+    puts "\n\nThe Secret Word has #{secret_word.length} letters."
     elsif attempts == 0
       puts "\n#{secret_word.gsub(/[a-z]/, " _ ")}"
-      puts "\nThe Secret Word has #{secret_word.length} letters.\n\n"
+      puts "\nThe Secret Word has #{secret_word.length} letters."
+    end
+  end
+
+  def check_repeated_guess(player_round_guess)
+    unless @correct_letters.include?(player_round_guess)
+      @correct_letters << player_round_guess
+    else
+      @attempts -= 1
+      puts "You've tried this letter '#{player_round_guess}' before!"
     end
   end
 end
