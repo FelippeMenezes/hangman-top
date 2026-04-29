@@ -33,10 +33,7 @@ class Board
           print "#{" _ "}"
         end
       end
-      puts ""
-      puts ""
-      puts "The Secret Word has #{secret_word.length} letters."
-      puts ""
+      puts "\n\nThe Secret Word has #{secret_word.length} letters.\n\n"
     elsif player_round_guess != nil
       @wrong_letters << player_round_guess
       puts ""
@@ -47,16 +44,10 @@ class Board
           print "#{" _ "}"
         end
       end
-      puts ""
-      puts ""
-      puts "The Secret Word has #{secret_word.length} letters."
-      puts ""
+      puts "\n\nThe Secret Word has #{secret_word.length} letters.\n\n"
     elsif attempts == 0
-      puts ""
-      puts "#{secret_word.gsub(/[a-z]/, " _ ")}"
-      puts ""
-      puts "The Secret Word has #{secret_word.length} letters."
-      puts ""
+      puts "\n#{secret_word.gsub(/[a-z]/, " _ ")}"
+      puts "\nThe Secret Word has #{secret_word.length} letters.\n\n"
     end
   end
 end
