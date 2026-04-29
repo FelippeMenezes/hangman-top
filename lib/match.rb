@@ -16,7 +16,7 @@ class Match
   def start
     ask_player_name
     select_sample_secret_word
-    @board.show_board(@secret_word, self)
+    play
   end
 
   def ask_player_round_guess
@@ -37,5 +37,11 @@ class Match
                         .map { |word| word.chomp }
                         .select { |word| word.length.between?(5, 12) }
                         .sample
+  end
+
+  def play
+    while @board.attempts <= 15
+      @board.show_board(@secret_word, self)
+    end
   end
 end
