@@ -8,5 +8,4 @@ p player
 board = Board.new
 p board
 
-macth = Match.new(player, board)
-p macth
+match = Match.start

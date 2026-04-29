@@ -7,4 +7,8 @@ class Match
     @games_saved = games_saved
     @secret_word = secret_word
   end
+
+  def self.start
+
+  end
 end
