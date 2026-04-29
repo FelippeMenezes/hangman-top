@@ -30,7 +30,7 @@ class Match
 
     while line = file.gets do
       line if line.length >= 5 && line.length <= 12
-      p line
+      p line.chomp
     end
 
     file.close
