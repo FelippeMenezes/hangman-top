@@ -24,44 +24,48 @@ class Board
 
   def show_secret_letters(secret_word, player_round_guess)
     if secret_word.chars.include?(player_round_guess) && player_round_guess != nil
-      check_repeated_guess(player_round_guess)
-      puts ""
-      secret_word.chars.each do |letter|
-        if @correct_letters.include?(letter)
-          print " #{letter} "
-        else
-          print "#{" _ "}"
-        end
-      end
-    puts "\n\nThe Secret Word has #{secret_word.length} letters."
+      check_correct_repeated_guess(player_round_guess)
+      show_correct_letter(secret_word)
     elsif player_round_guess != nil
-      unless @wrong_letters.include?(player_round_guess)
-        @wrong_letters << player_round_guess
-      else
-        @attempts -= 1
-        puts "You've tried this letter '#{player_round_guess}' before!"
-      end
-      puts ""
-      secret_word.chars.each do |letter|
-        if @correct_letters.include?(letter)
-          print " #{letter} "
-        else
-          print "#{" _ "}"
-        end
-      end
-    puts "\n\nThe Secret Word has #{secret_word.length} letters."
+      check_wrong_repeated_guess(player_round_guess)
+      show_correct_letter(secret_word)
     elsif attempts == 0
-      puts "\n#{secret_word.gsub(/[a-z]/, " _ ")}"
-      puts "\nThe Secret Word has #{secret_word.length} letters."
+      hide_secret_word(secret_word)
     end
   end
 
-  def check_repeated_guess(player_round_guess)
+  def check_correct_repeated_guess(player_round_guess)
     unless @correct_letters.include?(player_round_guess)
       @correct_letters << player_round_guess
     else
       @attempts -= 1
       puts "You've tried this letter '#{player_round_guess}' before!"
     end
+  end
+
+  def check_wrong_repeated_guess(player_round_guess)
+    unless @wrong_letters.include?(player_round_guess)
+      @wrong_letters << player_round_guess
+    else
+      @attempts -= 1
+      puts "You've tried this letter '#{player_round_guess}' before!"
+    end
+  end
+
+  def show_correct_letter(secret_word)
+    puts ""
+    secret_word.chars.each do |letter|
+      if @correct_letters.include?(letter)
+        print " #{letter} "
+      else
+        print "#{" _ "}"
+      end
+    end
+    puts "\n\nThe Secret Word has #{secret_word.length} letters."
+  end
+
+  def hide_secret_word(secret_word)
+    puts "\n#{secret_word.gsub(/[a-z]/, " _ ")}"
+    puts "\nThe Secret Word has #{secret_word.length} letters."
   end
 end
