@@ -50,6 +50,9 @@ class Match
         puts "\nGame Over! The Secret Word was #{secret_word}.\n\n"
         break
       end
+      break if @player.round_guess == "1"
+      break if @player.round_guess == "2" # to do
+      break if @player.round_guess == "3" # to do
       ask_player_round_guess
     end
   end
