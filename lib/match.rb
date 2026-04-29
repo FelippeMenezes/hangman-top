@@ -9,6 +9,8 @@ class Match
   end
 
   def self.start
-
+    @player = Player.new
+    @board = Board.new
+    Match.new(@player, @board)
   end
 end
