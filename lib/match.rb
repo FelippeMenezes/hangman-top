@@ -15,6 +15,7 @@ class Match
 
   def start
     ask_player_name
+    select_sample_secret_word
   end
 
   private
@@ -22,5 +23,16 @@ class Match
   def ask_player_name
     print "What's your name? => "
     @player.name = gets.chomp
+  end
+
+  def select_sample_secret_word
+    file = File.open("google-10000-english-no-swears.txt")
+
+    while line = file.gets do
+      line if line.length >= 5 && line.length <= 12
+      p line
+    end
+
+    file.close
   end
 end
