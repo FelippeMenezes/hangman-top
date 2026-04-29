@@ -1,5 +1,3 @@
-require 'pry-byebug'
-
 class Board
   attr_accessor :attempts, :correct_letters, :wrong_letters
 
@@ -26,10 +24,39 @@ class Board
 
   def show_secret_letters(secret_word, player_round_guess)
     if secret_word.chars.include?(player_round_guess) && player_round_guess != nil
-      puts "Teste"
       @correct_letters << player_round_guess
+      puts ""
+      secret_word.chars.each do |letter|
+        if @correct_letters.include?(letter)
+          print " #{letter} "
+        else
+          print "#{" _ "}"
+        end
+      end
+      puts ""
+      puts ""
+      puts "The Secret Word has #{secret_word.length} letters."
+      puts ""
     elsif player_round_guess != nil
       @wrong_letters << player_round_guess
+      puts ""
+      secret_word.chars.each do |letter|
+        if @correct_letters.include?(letter)
+          print " #{letter} "
+        else
+          print "#{" _ "}"
+        end
+      end
+      puts ""
+      puts ""
+      puts "The Secret Word has #{secret_word.length} letters."
+      puts ""
+    elsif attempts == 0
+      puts ""
+      puts "#{secret_word.gsub(/[a-z]/, " _ ")}"
+      puts ""
+      puts "The Secret Word has #{secret_word.length} letters."
+      puts ""
     end
   end
 end
