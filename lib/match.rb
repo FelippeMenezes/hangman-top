@@ -8,12 +8,16 @@ class Match
     @secret_word = secret_word
   end
 
-  def self.start
-    @player = Player.new
-    @board = Board.new
-    @match = Match.new(@player, @board)
-    @match.ask_player_name
+  def self.create
+    @match = Match.new(Player.new, Board.new)
+    @match.start
   end
+
+  def start
+    ask_player_name
+  end
+
+  private
 
   def ask_player_name
     print "What's your name? => "
