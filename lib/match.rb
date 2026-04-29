@@ -11,6 +11,12 @@ class Match
   def self.start
     @player = Player.new
     @board = Board.new
-    Match.new(@player, @board)
+    @match = Match.new(@player, @board)
+    @match.ask_player_name
+  end
+
+  def ask_player_name
+    print "What's your name? => "
+    @player.name = gets.chomp
   end
 end
