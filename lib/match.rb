@@ -16,8 +16,13 @@ class Match
   def start
     ask_player_name
     select_sample_secret_word
-    @board.show_board(@secret_word)
-    p self
+    @board.show_board(@secret_word, self)
+  end
+
+  def ask_player_round_guess
+    print "#{@player.name}, what's your guess? => "
+    @player.round_guess = gets.chomp
+    @board.attempts += 1
   end
 
   private

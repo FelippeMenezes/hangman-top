@@ -7,14 +7,17 @@ class Board
     @wrong_letters = wrong_letters
   end
 
-  def show_board(secret_word)
+  def show_board(secret_word, match)
     system('clear')
+    p match
     puts "\n----- Hangman - The Odin project -----\n"
     puts secret_word
     puts @attempts, @correct_lettersm, @wrong_letters
     puts "\n--------------------------------------"
-    print "[1] Exit"
-    print "[2] Save"
+    print "[1] Exit   "
+    print "[2] Save   "
     print "[3] Load a game\n"
+    match.ask_player_round_guess
+    p match
   end
 end
