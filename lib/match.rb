@@ -1,5 +1,5 @@
 class Match
-  attr_accessor :player, :board, :secret_word, :games_saved
+  attr_accessor :player, :board, :games_saved, :secret_word
 
   def initialize(player, board, games_saved = nil, secret_word = nil)
     @player = player
@@ -16,6 +16,8 @@ class Match
   def start
     ask_player_name
     select_sample_secret_word
+    @board.show_board(@secret_word)
+    p self
   end
 
   private
