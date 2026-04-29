@@ -41,8 +41,7 @@ class Match
 
   def play
     while @board.attempts <= 15
-      p self
-      @board.show_board(@secret_word, self)
+      @board.show_board(@secret_word, self, @player.round_guess)
       if @player.round_guess == @secret_word
         puts "You win!"
         break
