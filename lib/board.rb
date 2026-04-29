@@ -13,8 +13,8 @@ class Board
     puts secret_word
     puts @attempts, @correct_lettersm, @wrong_letters
     puts "\n--------------------------------------"
-    print "[x] Exit"
-    print "[x] Save"
-    print "[L] Load a game\n"
+    print "[1] Exit"
+    print "[2] Save"
+    print "[3] Load a game\n"
   end
 end
