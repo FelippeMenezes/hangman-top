@@ -26,13 +26,9 @@ class Match
   end
 
   def select_sample_secret_word
-    file = File.open("google-10000-english-no-swears.txt")
-
-    while line = file.gets do
-      line if line.length >= 5 && line.length <= 12
-      p line.chomp
-    end
-
-    file.close
+    @secret_word = File.readlines("google-10000-english-no-swears.txt")
+                        .map { |word| word.chomp }
+                        .select { |word| word.length.between?(5, 12) }
+                        .sample
   end
 end
