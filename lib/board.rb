@@ -51,11 +51,11 @@ class Board
   end
 
   def check_wrong_repeated_guess(player_round_guess)
-    unless @wrong_letters.include?(player_round_guess)
-      @wrong_letters << player_round_guess
-    else
+    if @wrong_letters.include?(player_round_guess)
       @attempts -= 1
       puts "You've tried this letter '#{player_round_guess}' before!"
+    else
+      @wrong_letters << player_round_guess
     end
   end
 
