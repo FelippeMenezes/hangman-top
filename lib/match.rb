@@ -54,7 +54,12 @@ class Match
       end
       break if @player.round_guess == "1"
       save_game if @player.round_guess == "2"
-      break if @player.round_guess == "3" # to do
+      if @player.round_guess == "3"
+        loaded = load_game
+        # Se carregou com sucesso, continua o loop do zero
+        # (o loop vai chamar show_board com o estado restaurado)
+        next if loaded
+      end
       ask_player_round_guess
     end
   end
@@ -73,5 +78,26 @@ class Match
     end
 
     puts "Game saved Successfully"
+  end
+
+  def load_game
+    unless File.exist?('data_base.yaml')
+      puts "No saved game found!"
+      return false
+    end
+
+    game_state =YAML.safe_load(
+      File.read('data_base.yaml'),
+      permitted_classes: [Symbol],
+      symbolize_names: true
+    )
+
+    @secret_word = game_state[:secret_word]
+    @player.name = game_state[:player_name]
+    @board.attempts = game_state[:attempts]
+    @board.correct_letters = game_state[:correct_letters]
+    @board.wrong_letters = game_state[:wrong_letters]
+
+    @board.show_board(@secret_word, self, @player.round_guess)
   end
 end
