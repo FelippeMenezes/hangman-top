@@ -23,19 +23,27 @@ class Board
   private
 
   def show_secret_letters(secret_word, player_round_guess)
-    if secret_word.chars.include?(player_round_guess) && player_round_guess != nil
+    if player_round_guess.nil?
+      hide_secret_word(secret_word)
+    elsif %w[1 2 3].include?(player_round_guess)
+      @attempts -= 1
+      show_correct_letter(secret_word)
+    elsif !player_round_guess.match?(/^[a-z]$/)
+      @attempts -= 1
+      puts "\nOnly letters are allowed!"
+      show_correct_letter(secret_word)
+    elsif secret_word.chars.include?(player_round_guess)
       check_correct_repeated_guess(player_round_guess)
       show_correct_letter(secret_word)
-    elsif player_round_guess != nil
+    else
       check_wrong_repeated_guess(player_round_guess)
       show_correct_letter(secret_word)
-    elsif attempts == 0
-      hide_secret_word(secret_word)
     end
   end
 
   def check_correct_repeated_guess(player_round_guess)
     unless @correct_letters.include?(player_round_guess)
+
       @correct_letters << player_round_guess
     else
       @attempts -= 1
