@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Board class
 class Board
   attr_accessor :attempts, :correct_letters, :wrong_letters
 
@@ -7,16 +10,16 @@ class Board
     @wrong_letters = wrong_letters
   end
 
-  def show_board(secret_word, match, round_guess)
+  def show_board(secret_word, _match, round_guess)
     system('clear')
     puts "\n----- Hangman - The Odin project -----\n".colorize(:blue)
     show_secret_letters(secret_word, round_guess)
     puts "\nAttempts: #{@attempts.to_s.colorize(:yellow)}"
-    puts "Correct Letters: #{@correct_letters.join(" - ").colorize(:green)}"
-    puts "Wrong Letters: #{@wrong_letters.join(" - ").colorize(:red)}"
+    puts "Correct Letters: #{@correct_letters.join(' - ').colorize(:green)}"
+    puts "Wrong Letters: #{@wrong_letters.join(' - ').colorize(:red)}"
     puts "\n--------------------------------------"
-    print "[1] Exit   ".colorize(:red)
-    print "[2] Save   ".colorize(:green)
+    print '[1] Exit   '.colorize(:red)
+    print '[2] Save   '.colorize(:green)
     print "[3] Load a game\n".colorize(:yellow)
   end
 
@@ -30,7 +33,7 @@ class Board
       show_correct_letter(secret_word)
     elsif !player_round_guess.match?(/^[a-z]+$/)
       @attempts -= 1
-      puts "Only letters are allowed!".colorize(:red)
+      puts 'Only letters are allowed!'.colorize(:red)
       show_correct_letter(secret_word)
     elsif secret_word.chars.include?(player_round_guess)
       check_correct_repeated_guess(player_round_guess)
@@ -60,19 +63,19 @@ class Board
   end
 
   def show_correct_letter(secret_word)
-    puts ""
+    puts ''
     secret_word.chars.each do |letter|
       if @correct_letters.include?(letter)
         print " #{letter.colorize(:green)} "
       else
-        print "#{" _ ".colorize(:blue)}"
+        print ' _ '.colorize(:blue)
       end
     end
     puts "\n\nThe Secret Word has #{secret_word.length} letters.".colorize(:blue)
   end
 
   def hide_secret_word(secret_word)
-    puts "\n#{secret_word.gsub(/[a-z]/, " _ ")}".colorize(:blue)
+    puts "\n#{secret_word.gsub(/[a-z]/, ' _ ')}".colorize(:blue)
     puts "\nThe Secret Word has #{secret_word.length} letters.".colorize(:blue)
   end
 end
