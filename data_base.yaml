@@ -1,0 +1,17 @@
+---
+:secret_word: destruction
+:player_name: Felippe
+:attempts: 11
+:correct_letters:
+- e
+- i
+- o
+- "n"
+- d
+- t
+- s
+- r
+:wrong_letters:
+- a
+- x
+- '2'

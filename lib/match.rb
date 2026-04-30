@@ -1,3 +1,5 @@
+require 'yaml'
+
 class Match
   attr_accessor :player, :board, :games_saved, :secret_word
 
@@ -51,9 +53,25 @@ class Match
         break
       end
       break if @player.round_guess == "1"
-      break if @player.round_guess == "2" # to do
+      save_game if @player.round_guess == "2"
       break if @player.round_guess == "3" # to do
       ask_player_round_guess
     end
+  end
+
+  def save_game
+    game_state = {
+      secret_word: @secret_word,
+      player_name: @player.name,
+      attempts: @board.attempts,
+      correct_letters: @board.correct_letters,
+      wrong_letters: @board.wrong_letters
+    }
+
+    File.open('data_base.yaml', 'w') do |file|
+      file.write(YAML.dump(game_state))
+    end
+
+    puts "Game saved Successfully"
   end
 end
